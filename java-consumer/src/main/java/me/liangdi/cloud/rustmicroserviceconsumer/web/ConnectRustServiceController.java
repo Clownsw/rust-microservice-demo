@@ -1,26 +1,28 @@
 package me.liangdi.cloud.rustmicroserviceconsumer.web;
 
+import me.liangdi.cloud.rustmicroserviceconsumer.entity.Message;
 import me.liangdi.cloud.rustmicroserviceconsumer.service.OpenFeignRustService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequestMapping("/rust-service/test")
 @RestController
-@RequestMapping("/api/feign")
-public class OpenFeignController {
+public class ConnectRustServiceController {
 
     @Autowired
     @Qualifier("me.liangdi.cloud.rustmicroserviceconsumer.service.OpenFeignRustService")
-    OpenFeignRustService rustService;
+    private OpenFeignRustService openFeignRustService;
 
-    @RequestMapping("/foo")
+    @GetMapping("/foo")
     public String foo() {
-        return rustService.foo();
+        return openFeignRustService.foo();
     }
-    
-    @RequestMapping("/bar")
-    public Object bar() {
-        return rustService.bar();
+
+    @GetMapping("/bar")
+    public Message bar() {
+        return openFeignRustService.bar();
     }
 }

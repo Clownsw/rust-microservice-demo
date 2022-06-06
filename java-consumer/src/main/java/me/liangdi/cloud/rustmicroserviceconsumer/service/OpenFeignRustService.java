@@ -1,19 +1,22 @@
 package me.liangdi.cloud.rustmicroserviceconsumer.service;
 
+import me.liangdi.cloud.rustmicroserviceconsumer.entity.Message;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.HashMap;
 
-@FeignClient(name = "rust-microservice",fallback = OpenFeignRustService.FallbackService.class)
+@FeignClient(name = "rust-microservice", fallback = OpenFeignRustService.FallbackService.class)
 public interface OpenFeignRustService {
     @GetMapping("/foo")
-    public String foo();
+    String foo();
+
     @GetMapping("/bar")
-    public Object bar();
+    Message bar();
+
     @Component
-    public static class FallbackService implements OpenFeignRustService{
+    class FallbackService implements OpenFeignRustService {
 
         @Override
         public String foo() {
@@ -21,8 +24,8 @@ public interface OpenFeignRustService {
         }
 
         @Override
-        public Object bar() {
-            return new HashMap<>();
+        public Message bar() {
+            return new Message();
         }
     }
 }

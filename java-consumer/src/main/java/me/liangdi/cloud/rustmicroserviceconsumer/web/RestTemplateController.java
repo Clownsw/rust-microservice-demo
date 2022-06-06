@@ -14,10 +14,11 @@ public class RestTemplateController {
 
     @RequestMapping("/foo")
     public String foo() {
-        return restTemplate.getForObject("http://"+SERVICE+"/foo",String.class);
+        return restTemplate.getForObject("http://" + SERVICE + "/foo", String.class);
     }
+
     @RequestMapping("/bar")
     public Object bar() {
-        return restTemplate.getForObject("http://"+SERVICE+"/bar",Object.class);
+        return restTemplate.getForObject("http://" + SERVICE + "/bar", Object.class);
     }
 }
